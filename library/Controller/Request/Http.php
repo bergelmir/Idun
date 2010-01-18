@@ -3,24 +3,26 @@
 /**
  * Idun
  * 
- * LICENCE
+ * LICENSE
  * 
- * ...
+ * This source file is subject to the new BSD license that is bundled with this
+ * package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world-wide-web, please send an email to license@flabben.net so we
+ * can send you a copy immediately.
  * 
  * @category  Idun
  * @package   Idun_Controller
  * @copyright Copyright (c) 2010 Arvid Bergelmir (http://www.flabben.net/)
- * @license   
  * @version   $Id:$
  */
 
-/**
- * @see Zend_Controller_Request_Http
- */
+/** @see Zend_Controller_Request_Http */
 require_once 'Zend/Controller/Request/Http.php';
 
 /**
  * @category  Idun
+ * @package   Idun_Controller
  * @copyright Copyright (c) 2010 Arvid Bergelmir
  * @author    Arvid Bergelmir <arvid.bergelmir@flabben.net>
  */
