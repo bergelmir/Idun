@@ -17,9 +17,6 @@
  * @version   $Id:$
  */
 
-/** @see Zend_Controller_Request_Http */
-require_once 'Zend/Controller/Request/Http.php';
-
 /**
  * @category  Idun
  * @package   Idun_Controller
