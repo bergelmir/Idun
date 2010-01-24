@@ -246,7 +246,7 @@ class Idun_Form_Helper_Token
         $html = preg_replace(
             '/<form[^>]+method="post"[^>]*>/i',
             sprintf(
-                '$0<p class="hidden"><input type="hidden" name="%s" value="%s" /></p>',
+                '$0<div><input type="hidden" name="%s" value="%s" /></div>',
                 $this->getTokenKey(), $token
             ),
             $html,
