@@ -51,6 +51,53 @@ class Idun_Form_Helper_Token
     
     /**
      * @access public
+     * @param  Zend_Config|array|null $config
+     * @throws Idun_Form_Helper_Exception
+     * @return void
+     */
+    public function __construct($config = null)
+    {
+        if ($config instanceof Zend_Config) {
+            $this->setConfig($config);
+        } elseif (is_array($config)) {
+            $this->setOptions($config);
+        }
+    }
+    
+    /**
+     * @access public
+     * @param  Zend_Config $config
+     * @return Idun_Form_Helper_Token
+     */
+    public function setConfig(Zend_Config $config)
+    {
+        $this->setOptions($config->toArray());
+        return $this;
+    }
+    
+    /**
+     * @access public
+     * @param  array $options
+     * @throws Idun_Form_Helper_Exception
+     * @return Idun_Form_Helper_Token
+     */
+    public function setOptions(array $options)
+    {
+        foreach ($options as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            if (!method_exists($this, $method)) {
+                throw new Idun_Form_Helper_Exception(sprintf(
+                    'Unknown option "%s".', $key
+                ));
+            }
+            $this->$method($value);
+        }
+        return $this;
+    }
+    
+    
+    /**
+     * @access public
      * @param  integer $tokenLength
      * @param  Idun_Form_Helper_Exception
      * @return Idun_Form_Helper_Token
