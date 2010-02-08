@@ -49,7 +49,7 @@ class Idun_Controller_Plugin_FormToken extends Zend_Controller_Plugin_Abstract
      * @param  Zend_Controller_Request_Abstract $request
      * @return void
      */
-    public function preDispatch(Zend_Controller_Request_Abstract $request)
+    public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
         if (!$request->isPost()) {
             return null;
