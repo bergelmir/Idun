@@ -131,10 +131,10 @@ class Idun_Form_Helper_Token
     public function setTokenKey($tokenKey)
     {
         $tokenKey = (string)$tokenKey;
-        if (!preg_match('/^[a-z0-9_]+/i', $tokenKey)) {
+        if (!preg_match('/^[a-z0-9_]+$/i', $tokenKey)) {
             throw new Idun_Form_Helper_Exception(sprintf(
                 'Token key "%s" should only contain alphanumeric characters and underscores.',
-                $tokenCount
+                $tokenKey
             ));
         }
         $this->_tokenKey = (string)$tokenKey;
@@ -180,7 +180,7 @@ class Idun_Form_Helper_Token
     {
         if ($maximumTokenCount < 1) {
             throw new Idun_Form_Helper_Exception(
-                'Maxmium token count must be greater or equal 1.'
+                'Maximum token count must be greater or equal 1.'
             );
         }
         $this->_maximumTokenCount = (int)$maximumTokenCount;
