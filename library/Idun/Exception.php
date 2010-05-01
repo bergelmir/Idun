@@ -23,4 +23,4 @@
  * @copyright Copyright (c) 2010 Arvid Bergelmir
  * @author    Arvid Bergelmir <arvid.bergelmir@flabben.net>
  */
-class Idun_Exception extends Zend_Exception {}
+class Idun_Exception extends Exception {}
