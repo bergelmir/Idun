@@ -52,7 +52,7 @@ class Idun_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function getPost($key = null, $default = null, $filter = null, array $options = null)
     {
-        $value = parent::getQuery($key, $default);
+        $value = parent::getPost($key, $default);
         if ($filter !== null || $options !== null) {
             $value = $this->_filter($value, $default, $filter, $options);
         }
@@ -69,7 +69,7 @@ class Idun_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function getServer($key = null, $default = null, $filter = null, array $options = null)
     {
-        $value = parent::getQuery($key, $default);
+        $value = parent::getServer($key, $default);
         if ($filter !== null || $options !== null) {
             $value = $this->_filter($value, $default, $filter, $options);
         }
@@ -86,7 +86,7 @@ class Idun_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function getCookie($key = null, $default = null, $filter = null, array $options = null)
     {
-        $value = parent::getQuery($key, $default);
+        $value = parent::getCookie($key, $default);
         if ($filter !== null || $options !== null) {
             $value = $this->_filter($value, $default, $filter, $options);
         }
@@ -103,7 +103,7 @@ class Idun_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function getEnv($key = null, $default = null, $filter = null, array $options = null)
     {
-        $value = parent::getQuery($key, $default);
+        $value = parent::getEnv($key, $default);
         if ($filter !== null || $options !== null) {
             $value = $this->_filter($value, $default, $filter, $options);
         }
@@ -129,7 +129,7 @@ class Idun_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!empty($options['flags'])) {
             $options['flags'] |= FILTER_NULL_ON_FAILURE;
         } else {
-            $options = $this->_arrayMergeRecursive($options, array(
+            $options = Idun_Array::mergeRecursive($options, array(
                 'flags' => FILTER_NULL_ON_FAILURE
             ));
         }
@@ -162,35 +162,5 @@ class Idun_Controller_Request_Http extends Zend_Controller_Request_Http
         }
         
         return $value;
-    }
-    
-    /**
-     * @access protected
-     * @param  mixed $firstArray
-     * @param  mixed $secondArray
-     * @return array
-     */
-    protected function _arrayMergeRecursive($firstArray, $secondArray)
-    {
-        if (is_array($firstArray) && is_array($secondArray)) {
-            foreach ($secondArray as $key => $value) {
-                if (isset($firstArray[$key])) {
-                    $firstArray[$key] = $this->_arrayMergeRecursive(
-                        $firstArray[$key], $value
-                    );
-                } else {
-                    if ($key === 0) {
-                        $firstArray = array(0 => $this->_arrayMergeRecursive(
-                            $firstArray, $value
-                        ));
-                    } else {
-                        $firstArray[$key] = $value;
-                    }
-                }
-            }
-        } else {
-            $firstArray = $secondArray;
-        }
-        return $firstArray;
     }
 }
