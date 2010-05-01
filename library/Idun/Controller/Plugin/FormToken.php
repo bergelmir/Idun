@@ -38,16 +38,47 @@ class Idun_Controller_Plugin_FormToken extends Zend_Controller_Plugin_Abstract
      */
     public function __construct($formHelperToken = null)
     {
-        if (!$formHelperToken instanceof Idun_Form_Helper_Token) {
-            $formHelperToken = new Idun_Form_Helper_Token($formHelperToken);
+        if ($formHelperToken instanceof Idun_Form_Helper_Token) {
+            $this->setHelper($formHelperToken);
+        } elseif (is_array($formHelperToken) || ($formHelperToken instanceof Zend_Config)) {
+            $this->setHelper(new Idun_Form_Helper_Token($formHelperToken));
+        } elseif ($formHelperToken !== null) {
+            throw new Idun_Controller_Plugin_Exception(sprintf(
+                'First parameter must be NULL, an array, an instance of Zend_Config ' .
+                'or an instance of Idun_Form_Helper_Token. %s given.',
+                ucfirst(gettype($formHelperToken))
+            ));
         }
+    }
+    
+    /**
+     * @access public
+     * @param  Idun_Form_Helper_Token $formHelperToken
+     * @return Idun_Controller_Plugin_Token
+     */
+    public function setHelper(Idun_Form_Helper_Token $formHelperToken)
+    {
         $this->_formHelperToken = $formHelperToken;
+        return $this;
+    }
+    
+    /**
+     * @access public
+     * @param  boolean $required
+     * @return Idun_Form_Helper_Token|null
+     */
+    public function getHelper($required = true)
+    {
+        if ($required && empty($this->_formHelperToken)) {
+            throw new Idun_Controller_Plugin_Exception('No token helper set.');
+        }
+        return $this->_formHelperToken;
     }
     
     /**
      * @access public
      * @param  Zend_Controller_Request_Abstract $request
-     * @return void
+     * @return boolean|null
      */
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
@@ -55,13 +86,15 @@ class Idun_Controller_Plugin_FormToken extends Zend_Controller_Plugin_Abstract
             return null;
         }
         
-        $token = $request->getPost($this->_formHelperToken->getTokenKey());
-        if (!empty($token) && $this->_formHelperToken->hasToken($token)) {
-            $this->_formHelperToken->removeToken($token);
-            return null;
+        $formHelperToken = $this->getHelper();
+        $token = $request->getPost($formHelperToken->getTokenKey());
+        if (!empty($token) && $formHelperToken->hasToken($token)) {
+            $formHelperToken->removeToken($token);
+            return true;
         }
         
         $this->_checkFailed($request);
+        return false;
     }
     
     /**
@@ -72,7 +105,7 @@ class Idun_Controller_Plugin_FormToken extends Zend_Controller_Plugin_Abstract
     public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
         $response = Zend_Controller_Front::getInstance()->getResponse();
-        $response->setBody($this->_formHelperToken->parseTokenIntoHtml(
+        $response->setBody($this->getHelper()->parseTokenIntoHtml(
             $response->getBody()
         ));
     }
