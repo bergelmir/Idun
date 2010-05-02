@@ -26,6 +26,19 @@
 class Idun_Validate_Xor extends Idun_Validate_Conditionable
 {
     /**
+     * Error codes
+     */
+    const MATCHES_ALL_CONDITIONS = 'matchesAllConditions';
+    
+    /**
+     * @access protected
+     * @var    array
+     */
+    protected $_messageTemplates = array(
+        self::MATCHES_ALL_CONDITIONS => '\'%value%\' must not match all conditions.'
+    );
+    
+    /**
      * @access public
      * @param  mixed $value
      * @return boolean
@@ -60,6 +73,7 @@ class Idun_Validate_Xor extends Idun_Validate_Conditionable
             return true;
         }
         
+        $this->_error(self::MATCHES_ALL_CONDITIONS);
         return false;
     }
 }
