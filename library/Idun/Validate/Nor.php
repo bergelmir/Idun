@@ -45,7 +45,7 @@ class Idun_Validate_Nor extends Idun_Validate_Or
      */
     public function isValid($value)
     {
-        if (parent::isValid($value)) {
+        if (!parent::isValid($value)) {
             $this->_messages = array();
             $this->_errors = array();
             return true;
