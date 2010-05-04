@@ -46,6 +46,16 @@ class Idun_Validate extends Zend_Validate
     /**
      * @static
      * @access public
+     * @return void
+     */
+    public static function unsetPluginLoader()
+    {
+        self::$_pluginLoader = null;
+    }
+    
+    /**
+     * @static
+     * @access public
      * @return Zend_Loader_PluginLoader_Interface
      */
     public static function getPluginLoader()
