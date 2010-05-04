@@ -1,7 +1,6 @@
 <?php
 
-require_once realpath(dirname(__FILE__) . '/../TestConfiguration.php');
-require_once 'PHPUnit/Framework.php';
+require_once realpath(dirname(__FILE__) . '/../TestHelper.php');
 
 /**
  * Test class for Idun_Array

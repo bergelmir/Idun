@@ -1,12 +1,11 @@
 <?php
 
-require_once realpath(dirname(__FILE__) . '/../../../TestConfiguration.php');
-require_once 'PHPUnit/Framework.php';
+require_once realpath(dirname(__FILE__) . '/../../../TestHelper.php');
 
 /**
- * Test class for Idun_Controller_Helper_FormToken
+ * Test class for Idun_Controller_Plugin_FormToken
  */
-class Idun_Controller_Helper_FormTokenTest extends PHPUnit_Framework_TestCase
+class Idun_Controller_Plugin_FormTokenTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Set up test case
@@ -97,7 +96,7 @@ class Idun_Controller_Helper_FormTokenTest extends PHPUnit_Framework_TestCase
         
         $formHelperToken = new Idun_Form_Helper_Token;
         $formTokenHelper->setHelper($formHelperToken);
-        $this->identicalTo($formHelperToken, $formTokenHelper->getHelper());
+        $this->assertSame($formHelperToken, $formTokenHelper->getHelper());
     }
     
     /**
