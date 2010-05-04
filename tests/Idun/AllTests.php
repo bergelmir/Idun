@@ -41,6 +41,9 @@ class Idun_AllTests
         require_once 'Idun/Validate/AllTests.php';
         $suite->addTest(Idun_Validate_AllTests::suite());
         
+        require_once 'Idun/ValidateTest.php';
+        $suite->addTestSuite('Idun_ValidateTest');
+        
         return $suite;
     }
 }
