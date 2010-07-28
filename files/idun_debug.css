@@ -1,0 +1,34 @@
+.idun_debug {
+    font-size: 10pt;
+    background-color: white;
+    margin: 5px;
+    border: 1px solid black;
+}
+
+.idun_debug .info {
+    font-size: 9pt;
+    font-family: Arial;
+    font-weight: bold;
+    background-color: dimgray;
+    color: white;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.idun_debug .info .label {
+    float: left;
+}
+
+.idun_debug .info .location {
+    float: right;
+}
+
+.idun_debug .info .clear {
+    clear: both;
+    height: 0px;
+}
+
+.idun_debug .dump {
+    margin: 5px;
+    color: black;
+}
