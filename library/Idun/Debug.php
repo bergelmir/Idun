@@ -38,7 +38,7 @@ class Idun_Debug extends Zend_Debug
      */
     public static function dump($var, $label = null, $echo = true)
     {
-        if (!$echo) {
+        if (!$echo || (self::getSapi() == 'cli')) {
             return parent::dump($var, $label, $echo);
         }
         
